@@ -23,10 +23,10 @@ jobs:
         go-version: ${{ matrix.go_version }}
       
     - name: Build-DB
-      run: docker-compose build
+      run: docker compose build
       
     - name: Create-DB
-      run: docker-compose up -d
+      run: docker compose up -d
 
     - name: Test
       run: go test -v main_test.go 
@@ -38,15 +38,7 @@ jobs:
     strategy:
       matrix:
         os: ['ubuntu-latest', 'ubuntu-22.04']
-    steps:
-    - uses: actions/checkout@v3
-    - name: Install Docker Compose
-      run: |
-        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-    - name: Build
-      run: docker-compose build
-      
+    steps:      
     - uses: actions/checkout@v3
     - name: Build
       run: go build -v main.go
